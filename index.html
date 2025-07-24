@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desde Que Você Se Foi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1e1a1d;
+      color: #f5f5f5;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      color: #f8c8dc;
+    }
+
+    .days-since {
+      font-size: 1.3em;
+      margin-top: 10px;
+      color: #c792b5;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      color: #f8c8dc;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    .counter, .calendar, .map-section, .music, .message-form {
+      margin-bottom: 50px;
+      background: #2c262a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    #timer {
+      text-align: center;
+      font-size: 1.1em;
+      color: #d4a5c2;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
+    .floating-images img {
+      position: absolute;
+      width: 100px;
+      animation: float 20s linear infinite;
+      opacity: 0.08;
+    }
+
+    .floating-images img:nth-child(1) { top: 10%; left: -100px; animation-delay: 0s; }
+    .floating-images img:nth-child(2) { top: 40%; left: -120px; animation-delay: 5s; }
+    .floating-images img:nth-child(3) { top: 70%; left: -140px; animation-delay: 10s; }
+
+    @keyframes float {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(120vw); }
+    }
+
+    .postits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .postit {
+      background: #3e2f35;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+      width: 220px;
+      font-style: italic;
+      font-size: 0.95em;
+      color: #f1d7e0;
+    }
+
+    .music-player audio {
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
+    .message-form textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #1c1b1e;
+      color: #f5f5f5;
+      resize: none;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .message-form button {
+      background-color: #f06292;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    .message-form button:hover {
+      background-color: #ec407a;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-images">
+    <img src="https://imgs.search.brave.com/g2n_mgbjtr_JPx6_f7U_ddDVcsztZN_bx4WCh5cBpbk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zbi1l/Y29tbS13ZWItaG9t/b2xvZy51cy1lYXN0/LTIudmlhamVndWFu/YWJhcmEuY29tLmJy/L19uZXh0L2ltYWdl/P3VybD1odHRwczov/L3Byb2Qtc24tYXNz/ZXRzLnVzLWVhc3Qt/Mi52aWFqZWd1YW5h/YmFyYS5jb20uYnIv/aW1nL1dFQi9idXMu/cG5nJnc9NjQwJnE9/NzU" alt="Guanabara">
+  </div>
+
+  <header>
+    <h1>Desde Que Você Se Foi</h1>
+    <p class="days-since" id="daysSince"></p>
+  </header>
+
+  <section class="counter">
+    <h2>Contador</h2>
+    <p id="timer"></p>
+  </section>
+
+  <section class="map-section">
+    <h2>Onde você está agora?</h2>
+    <p style="text-align:center;">Distância entre nós: <strong>1,2 km</strong></p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.928470918352!2d-43.010000000000005!3d-2.8999999999999986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMi45MCc1MC4wIlMgNDPCsDAxJzMwLjAiVw!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"></iframe>
+  </section>
+
+  <div class="postits">
+    <div class="postit">Ainda acredito em nós dois.</div>
+    <div class="postit">Eu continuo aqui, mesmo quando você não me vê.</div>
+    <div class="postit">Nosso amor foi real. Ainda é.</div>
+    <div class="postit">Se o tempo curar, que ele me leve de volta pra você.</div>
+    <div class="postit">A gente tinha tudo pra dar certo... e ainda tem.</div>
+    <div class="postit">Saudade é o que me visita todos os dias.</div>
+    <div class="postit">Ainda carrego esperança em cada lembrança.</div>
+    <div class="postit">Você foi o maior amor da minha vida.</div>
+  </div>
+
+  <section class="music">
+    <h2>Nossas trilhas: Wemerson e Tawane</h2>
+    <div class="music-player">
+      <audio controls>
+        <source src="WhatsApp Audio 2025-07-24 at 13.49.16.mp4" type="audio/mp3">
+      </audio>
+      <audio controls>
+        <source src="WhatsApp Audio 2025-07-24 at 13.52.41.mp4" type="audio/mp3">
+      </audio>
+      <audio controls>
+        <source src="WhatsApp Audio 2025-07-24 at 13.54.29.mp4" type="audio/mp3">
+      </audio>
+      <audio controls>
+        <source src="WhatsApp Audio 2025-07-24 at 13.55.47.mp4" type="audio/mp3">
+      </audio>
+    </div>
+  </section>
+
+  <section class="message-form">
+    <h2>Me envie uma mensagem</h2>
+    <textarea id="messageBox" placeholder="Escreva sua mensagem aqui..."></textarea>
+    <button onclick="sendMessage()">Enviar</button>
+  </section>
+
+  <script>
+    const startDate = new Date('2025-06-22T00:00:00');
+
+    function updateDaysSince() {
+      const now = new Date();
+      const diff = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+      document.getElementById('daysSince').textContent = `Já se passaram ${diff} dias desde que você se foi.`;
+    }
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById('timer').textContent = `${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos.`;
+    }
+
+    function sendMessage() {
+      const message = document.getElementById('messageBox').value.trim();
+      const phone = '5598984842866';
+      if (message !== '') {
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+      } else {
+        alert('Por favor, escreva uma mensagem antes de enviar.');
+      }
+    }
+
+    updateDaysSince();
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
+
